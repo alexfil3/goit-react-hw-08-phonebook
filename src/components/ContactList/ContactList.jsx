@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/contactsSelectors';
-import { selectFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/filter/filterSelectors';
 import { ContactListItem } from './ContactListItem/ContactListItem';
 import css from './ContactList.module.css';
 
-export const ContactList = () => {
+export const ContactList = ({ handleModal }) => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
 
@@ -22,8 +22,16 @@ export const ContactList = () => {
 
   return (
     <ul className={css.list}>
-      {visibleContacts().map(({ name, number, id }) => {
-        return <ContactListItem name={name} phone={number} key={id} id={id} />;
+      {visibleContacts().map(({ id, name, number }) => {
+        return (
+          <ContactListItem
+            name={name}
+            number={number}
+            key={id}
+            id={id}
+            handleModal={handleModal}
+          />
+        );
       })}
     </ul>
   );

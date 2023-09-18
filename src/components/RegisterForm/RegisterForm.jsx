@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from 'redux/auth/authOperations';
 import { selectIsLoggedIn } from 'redux/auth/authSelectors';
+import { Button } from '@chakra-ui/react';
 import css from './RegisterForm.module.css';
 
 export const RegisterForm = () => {
@@ -23,17 +24,19 @@ export const RegisterForm = () => {
     <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
       <label className={css.label}>
         Username
-        <input type="text" name="name" />
+        <input className={css.input} type="text" name="name" />
       </label>
       <label className={css.label}>
         Email
-        <input type="email" name="email" />
+        <input className={css.input} type="email" name="email" />
       </label>
       <label className={css.label}>
         Password
-        <input type="password" name="password" />
+        <input className={css.input} type="password" name="password" />
       </label>
-      <button type="submit">Register</button>
+      <Button type="submit" colorScheme="telegram" variant="ghost" size="md">
+        Sign Up
+      </Button>
     </form>
   );
 };

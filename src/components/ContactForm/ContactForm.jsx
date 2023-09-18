@@ -1,9 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
 import { selectContacts } from 'redux/contacts/contactsSelectors';
 import { addContact } from 'redux/contacts/contactsOperations';
+import { Button, useToast } from '@chakra-ui/react';
 import css from './ContactForm.module.css';
 
 const FormError = ({ name }) => {
@@ -18,8 +19,10 @@ const FormError = ({ name }) => {
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
 
-  const { form, label, input, button } = css;
+  const { form, label, input } = css;
 
   const initialValues = {
     name: '',
@@ -31,15 +34,23 @@ export const ContactForm = () => {
     number: string().required(),
   });
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async (values, { resetForm }) => {
     const duplicate = contacts.some(
       ({ name }) => name.toLowerCase() === values.name.toLowerCase()
     );
     if (duplicate) {
       return alert(`${values.name} is already in contacts`);
     }
-    console.log(values);
-    dispatch(addContact(values));
+    setIsLoading(true);
+    await dispatch(addContact(values));
+    setIsLoading(false);
+    toast({
+      title: 'Contact added.',
+      description: `${values.name} is in your Contacts now`,
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    });
     resetForm();
   };
 
@@ -60,9 +71,15 @@ export const ContactForm = () => {
           <Field className={input} type="tel" name="number" />
           <FormError name="number" />
         </label>
-        <button type="submit" className={button}>
-          Add contact
-        </button>
+        <Button
+          isLoading={isLoading}
+          loadingText="Submitting"
+          colorScheme="telegram"
+          variant="outline"
+          type="submit"
+        >
+          Submit
+        </Button>
       </Form>
     </Formik>
   );

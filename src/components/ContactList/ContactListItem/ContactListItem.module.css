@@ -2,24 +2,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+     border-bottom: 2px solid #1E90FF;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 .text {
-    font-size: 22px;
+    font-size: 16px;
     display: flex;
+    font-weight: 500;
 }
 
-.span {
+.number {
     margin-left: 5px;
-}
-
-.button {
-   border-radius: 20px;
-}
-
-.button:hover,
-.button:focus {
-    cursor: pointer;
-    background-color: blue;
-    color: white;
 }

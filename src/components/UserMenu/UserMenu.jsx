@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from 'redux/auth/authOperations';
 import { selectUser } from 'redux/auth/authSelectors';
+import css from './UserMenu.module.css';
+import { Icon } from '@chakra-ui/react';
+import { ImExit } from 'react-icons/im';
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -11,10 +14,10 @@ export const UserMenu = () => {
   };
 
   return (
-    <div>
-      <p>{name}</p>
+    <div className={css.wrapper}>
+      <p className={css.text}>{name}</p>
       <button type="button" onClick={handleLogOut}>
-        Logout
+        <Icon as={ImExit} color="white" />
       </button>
     </div>
   );
