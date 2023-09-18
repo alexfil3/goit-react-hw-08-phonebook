@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/authOperations';
-import { selectIsLoggedIn } from 'redux/auth/authSelectors';
 import { Button } from '@chakra-ui/react';
 import css from './RegisterForm.module.css';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const handleSubmit = e => {
     e.preventDefault();
