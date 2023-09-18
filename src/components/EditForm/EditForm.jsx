@@ -18,19 +18,7 @@ export const EditForm = ({ handleModal, contactId }) => {
 
     setName(foundContact.name);
     setNumber(foundContact.number);
-
-    const handleEscapeKey = e => {
-      if (e.key === 'Escape') {
-        handleModal();
-      }
-    };
-
-    document.addEventListener('keydown', handleEscapeKey);
-
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [contacts, contactId, handleModal]);
+  }, [contacts, contactId]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -51,14 +39,6 @@ export const EditForm = ({ handleModal, contactId }) => {
     handleModal();
   };
 
-  const handleOverlayClick = e => {
-    const overlayDiv = document.querySelector(`.${css.fixedOverlay}`);
-
-    if (e.target === overlayDiv) {
-      handleModal();
-    }
-  };
-
   const handleButtonClick = () => {
     handleModal();
   };
@@ -77,7 +57,7 @@ export const EditForm = ({ handleModal, contactId }) => {
   };
 
   return (
-    <div className={css.fixedOverlay} onClick={handleOverlayClick}>
+    <div className={css.fixedOverlay}>
       <div className={css.modal}>
         <div className={css.modalContainer}>
           <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
